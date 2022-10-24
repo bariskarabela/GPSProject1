@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -19,6 +20,7 @@ namespace Business.Concrete
             _noteDal = noteDal;
         }
 
+        [SecuredOperation("iladmin,ilceadmin")]
         public IResult Add(Note note)
         {
             note.CreatedDate = DateTime.Now;
@@ -27,6 +29,7 @@ namespace Business.Concrete
             return new SuccessResult("Not Eklendi.");
         }
 
+        [SecuredOperation("iladmin,ilceadmin")]
         public IDataResult<List<Note>> GetNoteByCoordinateId(int coordinateId)
         {
             return new SuccessDataResult<List<Note>>(_noteDal.GetAll(c=> c.CoordinateId==coordinateId), "Talep tarihçesi açıldı.");

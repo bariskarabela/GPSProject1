@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -20,13 +21,14 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
-
+        [SecuredOperation("iladmin")]
         public IResult Add(Category category)
         {
             _categoryDal.Add(category);
             return new SuccessResult(CategoryConstants.CategoryAdded);
         }
 
+        [SecuredOperation("iladmin")]
         public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);
@@ -48,6 +50,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Category>(_categoryDal.Get(c => c.Id == id), CategoryConstants.CategoryGettedById);
         }
 
+        [SecuredOperation("iladmin")]
         public IResult Update(Category category)
         {
             _categoryDal.Update(category);

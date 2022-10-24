@@ -23,22 +23,25 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-       
+        [SecuredOperation("iladmin")]
         public void Add(User user)
         {
             _userDal.Add(user);
         }
 
+        [SecuredOperation("iladmin")]
         public User GetByMail(string email)
         {
             return _userDal.Get(u => u.Email == email);
         }
 
+        [SecuredOperation("iladmin")]
         public User GetById(int id)
         {
             return _userDal.Get(u => u.Id == id);
         }
 
+        [SecuredOperation("iladmin")]
         public IResult Update(User user)
         {
               _userDal.Update(user);
@@ -46,13 +49,14 @@ namespace Business.Concrete
          
         }
 
+        [SecuredOperation("iladmin")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult("kullanıcı silindi");
         }
 
-      
+        [SecuredOperation("iladmin")]
         public List<OperationClaim> GetClaims(User user)
         {
             return _userDal.GetClaims(user);

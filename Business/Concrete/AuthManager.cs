@@ -1,9 +1,12 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -27,6 +30,7 @@ namespace Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
+        [SecuredOperation("iladmin")]
         [ValidationAspect(typeof(UserForRegisterDtoValidator))]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -47,6 +51,7 @@ namespace Business.Concrete
             _userService.Add(user);
             return new SuccessDataResult<User>(user, AuthContants.UserRegisterIsSuccess);
         }
+
         [ValidationAspect(typeof(UserForLoginDtoValidator))]
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
@@ -55,9 +60,14 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<User>(AuthContants.UserNotFound);
             }
-            
-         
+            var result = BusinessRules.Run(CheckUserStatus(userToCheck),
+                CheckVerifyPassword(userForLoginDto, userToCheck));
+            if (result != null)
+            {
+                return new ErrorDataResult<User>(result.Message);
+            }
             return new SuccessDataResult<User>(userToCheck, AuthContants.SuccessfulLogin);
+
         }
 
         public IResult UserExists(string email)
@@ -73,6 +83,15 @@ namespace Business.Concrete
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, AuthContants.AccessTokenCreated);
+        }
+        private IResult CheckVerifyPassword(UserForLoginDto userForLoginDto, User user)
+        {
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                return new ErrorResult(AuthContants.PasswordError);
+            }
+
+            return new SuccessResult();
         }
 
 
@@ -95,7 +114,7 @@ namespace Business.Concrete
            
             if (userToCheck.Status==false)
             {
-                return new ErrorResult(AuthContants.VerifyYourEmailAddress);
+                return new ErrorResult(AuthContants.UserPassive);
             }
 
             return new SuccessResult();

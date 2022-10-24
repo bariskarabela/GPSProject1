@@ -40,8 +40,8 @@ namespace Business.Concrete
             return new SuccessDataResult<Coordinate>(_coordinateDal.Get(c => c.Id == id), CoordinateConstants.CoordinateGettedById);
         }
 
- 
 
+        [SecuredOperation("iladmin,ilceadmin")]
         public IResult Add(Coordinate coordinate)
 
         {
@@ -51,12 +51,14 @@ namespace Business.Concrete
             return new SuccessResult(CoordinateConstants.CoordinateAdded);
         }
 
+        [SecuredOperation("iladmin")]
         public IResult Delete(Coordinate coordinate)
         {
             _coordinateDal.Delete(coordinate);
             return new SuccessResult(CoordinateConstants.CoordinateDeleted);
         }
 
+        [SecuredOperation("iladmin")]
         public IResult Update(Coordinate coordinate)
         {
             coordinate.UpdatedDate = DateTime.Now;
