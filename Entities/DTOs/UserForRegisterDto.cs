@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Entites;
+using Core.Entites.Concrete;
 
 namespace Entities.DTOs
 {

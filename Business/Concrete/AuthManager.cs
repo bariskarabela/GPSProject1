@@ -30,7 +30,7 @@ namespace Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        [SecuredOperation("iladmin")]
+        //[SecuredOperation("iladmin")]
         [ValidationAspect(typeof(UserForRegisterDtoValidator))]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
