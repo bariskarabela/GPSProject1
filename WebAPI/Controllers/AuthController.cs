@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.Constants;
 using Core.Entites.Concrete;
 using Core.Utilities.Helpers;
 using Core.Utilities.Helpers.Senders.SenderTemplates;
 using Core.Utilities.Helpers.Senders.SmsSenders;
 using Core.Utilities.Helpers.Senders.SmsSenders.Twilio;
 using Core.Utilities.Helpers.Senders.SmtpSender;
+using Core.Utilities.Results;
+using Core.Utilities.Security.Hashing;
 using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Cors;
@@ -72,21 +75,7 @@ namespace WebAPI.Controllers
 
             return BadRequest(registerResult);
         }
-        //[HttpPost("forgetpassword")]
-        //public IActionResult ForgetPassword(string eMail)
-        //{
-        //    var user = _userService.GetByMail(eMail);
-        //   // Random random = new Random();
-        //    var randomPassword = Guid.NewGuid().ToString().Split("-");
-        //    if (user != null)
-        //    {
-        //        var result = _userService.UpdatePassword(user.Email, randomPassword[0]);
-        //        _smtpEmailSender.SendEmail(SmtpConstants.fromAddress, user.Email+ "@egm.gov.tr", "Şifreniz kurumsal mail adresinize gönderildi.", randomPassword[0]);
-        //        return Ok(user);
-        //    }
-        //    return BadRequest(user == null ? "Kullanıcı bulunamadı" : user);
-
-        //}
+        
         [HttpPost("update")]
         public IActionResult Update(User user)
         {
@@ -109,6 +98,25 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
 
+        }
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
+            var result = _userService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        [HttpPost("updatepassword")]
+        public IActionResult UpdatePassword(UpdatePasswordDto updatePasswordDTO)
+        {
+            var result = _authService.UpdatePassword(updatePasswordDTO);
+            if (!result.Success) return BadRequest(result);
+
+            return Ok(result);
         }
     }
 }

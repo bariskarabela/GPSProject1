@@ -43,5 +43,16 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
             
         }
+        [HttpGet("getnotebyuserid")]
+        public IActionResult GetByUserId(int id)
+        {
+            var result = _userOperationClaimService.GetByUserId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }

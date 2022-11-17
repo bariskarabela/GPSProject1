@@ -119,7 +119,44 @@ namespace Business.Concrete
 
             return new SuccessResult();
         }
-        
+
+        public IResult UpdatePassword(UpdatePasswordDto updatePasswordDto)
+        {
+            var userToCheck = _userService.GetByMail(updatePasswordDto.Email);
+            if (userToCheck == null)
+            {
+                return new ErrorDataResult<User>(AuthContants.UserNotFound);
+            }
+            var result = BusinessRules.Run(CheckIfPasswordsMatch(updatePasswordDto.NewPassword, updatePasswordDto.NewPasswordAgain));
+            if (result!=null) return new ErrorResult("Şifre uyuşmuyor"); 
+
+            var userResult = _userService.GetByMail(updatePasswordDto.Email);
+
+            //var passwordVerificationResult = HashingHelper.VerifyPasswordHash(updatePasswordDTO.Password, userResult.Data.PasswordHash, userResult.Data.PasswordSalt);
+            //if (!passwordVerificationResult) return new ErrorResult(Messages.PasswordIsIncorrect);
+
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(updatePasswordDto.NewPassword, out passwordHash, out passwordSalt);
+
+            userResult.PasswordHash = passwordHash;
+            userResult.PasswordSalt = passwordSalt;
+
+            var updateResult = _userService.Update(userResult);
+            if (!updateResult.Success) return updateResult;
+
+            return new SuccessResult("Şifreniz güncellendi");
+        }
+        private IResult CheckIfPasswordsMatch(string newPassword, string newPasswordAgain)
+        {
+            if (newPassword != newPasswordAgain)
+
+                return new ErrorResult("Şifre uyuşmuyor");
+
+            return new SuccessResult();
+        }
+
+
+
 
         #endregion
     }

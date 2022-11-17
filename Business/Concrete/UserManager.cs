@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Entites.Concrete;
@@ -44,7 +45,7 @@ namespace Business.Concrete
         public IResult Update(User user)
         {
               _userDal.Update(user);
-            return new SuccessResult("kullanıcı güncellendi");
+            return new SuccessResult("Kullanıcı güncellendi");
          
         }
 
@@ -52,13 +53,18 @@ namespace Business.Concrete
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
-            return new SuccessResult("kullanıcı silindi");
+            return new SuccessResult("Kullanıcı silindi");
         }
 
 
         public List<OperationClaim> GetClaims(User user)
         {
             return _userDal.GetClaims(user);
+        }
+
+        public IDataResult<List<User>> GetAll()
+        {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(), "Bütün Kullanıcılar listelendi.");
         }
     }
 }
