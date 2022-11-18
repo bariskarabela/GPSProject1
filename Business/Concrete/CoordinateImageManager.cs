@@ -28,7 +28,7 @@ namespace Business.Concrete
         }
         //[TransactionScopeAspect]
         //[ValidationAspect(typeof(CoordinateImageValidator))]
-     
+        [SecuredOperation("iladmin")]
         public IResult Add( IFormFile file, CoordinateImage coordinateImage)
         {
             
@@ -46,14 +46,14 @@ namespace Business.Concrete
             return new SuccessResult(CoordinateImageConstants.CoordinateImagesAdded);
         }
         //[ValidationAspect(typeof(CoordinateImageValidator))]
-        //[SecuredOperation("admin,moderator")]
+         [SecuredOperation("iladmin")]
         public IResult Update(IFormFile file, CoordinateImage coordinateImage)
         {
             FileHelper.Update(file, PathConstants.ImagesPath + coordinateImage.ImagePath, PathConstants.ImagesPath);
             _coordinateImageDal.Update(coordinateImage);
             return new SuccessResult(CoordinateImageConstants.CoordinateImagesUpdated);
         }
-        //[SecuredOperation("admin,moderator")]
+        [SecuredOperation("iladmin")]
         public IResult Delete(CoordinateImage coordinateImage)
         
         {

@@ -21,6 +21,7 @@ namespace Business.Concrete
         {
             _userOperationClaimDal = userOperationClaimDal;
         }
+        [SecuredOperation("iladmin")]
         public IResult Add(UserOperationClaim userOperationClaim)
         {
             var userToCheck = _userOperationClaimDal.GetAll(c => c.UserId == userOperationClaim.UserId).Count();
@@ -37,7 +38,7 @@ namespace Business.Concrete
             return new SuccessDataResult<UserOperationClaim> (_userOperationClaimDal.Get(c => c.UserId == id), "UserId'ye göre getirildi.");
             
         }
-
+        [SecuredOperation("iladmin")]
         public IResult Update(UserOperationClaim userOperationClaim)
         {
             _userOperationClaimDal.Update(userOperationClaim);

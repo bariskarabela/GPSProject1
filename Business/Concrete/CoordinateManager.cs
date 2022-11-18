@@ -51,14 +51,14 @@ namespace Business.Concrete
             return new SuccessResult(CoordinateConstants.CoordinateAdded);
         }
 
-        [SecuredOperation("iladmin")]
+        [SecuredOperation("iladmin,ilceadmin")]
         public IResult Delete(Coordinate coordinate)
         {
             _coordinateDal.Delete(coordinate);
             return new SuccessResult(CoordinateConstants.CoordinateDeleted);
         }
 
-        [SecuredOperation("iladmin")]
+        [SecuredOperation("iladmin,ilceadmin")]
         public IResult Update(Coordinate coordinate)
         {
             coordinate.UpdatedDate = DateTime.Now;
