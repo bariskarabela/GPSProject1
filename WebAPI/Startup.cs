@@ -96,5 +96,6 @@ namespace WebAPI
                 endpoints.MapControllers();
             });
         }
+        //köpke adam
     }
 }
