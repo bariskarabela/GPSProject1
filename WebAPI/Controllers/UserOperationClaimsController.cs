@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
             
         }
-        [HttpGet("getnotebyuserid")]
+        [HttpGet("getclaimbyuserid")]
         public IActionResult GetByUserId(int id)
         {
             var result = _userOperationClaimService.GetByUserId(id);
