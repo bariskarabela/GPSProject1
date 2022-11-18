@@ -116,7 +116,7 @@ namespace WebAPI.Controllers
             var result = _authService.UpdatePassword(updatePasswordDTO);
             if (!result.Success) return BadRequest(result);
 
-            return Ok(result);
+            return Ok(result); 
         }
     }
 }
