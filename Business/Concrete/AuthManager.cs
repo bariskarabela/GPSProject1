@@ -95,7 +95,7 @@ namespace Business.Concrete
         }
 
 
-        #region BusinessRules
+
 
         private IResult CheckUserIfNotExists(string mail)
         {
@@ -156,9 +156,6 @@ namespace Business.Concrete
         }
 
 
-
-
-        #endregion
     }
 
 

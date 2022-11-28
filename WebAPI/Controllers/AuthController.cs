@@ -25,13 +25,11 @@ namespace WebAPI.Controllers
     public class AuthController : Controller
     {
         private IAuthService _authService;
-        private IEmailSender _smtpEmailSender;
         private IUserService _userService;
 
         public AuthController(IAuthService authService, IEmailSender smtpEmailSender, IUserService userService)
         {
             _authService = authService;
-            _smtpEmailSender = smtpEmailSender;
             _userService = userService;
 
         }
@@ -77,9 +75,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpPost("update")]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserForUpdateDto userForUpdateDto)
         {
-            var result = _userService.Update(user);
+            var result = _userService.UpdateUser(userForUpdateDto);
             if (result.Success)
             {
                 return Ok(result);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Entites.Concrete;
 using Core.Utilities.Results;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -17,5 +18,6 @@ namespace Business.Abstract
         IResult Update(User user);
         IResult Delete(User user);
         List<OperationClaim> GetClaims(User user);
+        IResult UpdateUser(UserForUpdateDto userForUpdateDto);
     }
 }

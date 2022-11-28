@@ -12,6 +12,8 @@ using Core.Entites.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
+using Entities.DTOs;
+using Twilio.TwiML.Messaging;
 
 namespace Business.Concrete
 {
@@ -66,5 +68,19 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), "Bütün Kullanıcılar listelendi.");
         }
+
+        public IResult UpdateUser(UserForUpdateDto userForUpdateDto)
+        {
+            var result = _userDal.Get(u => u.Id == userForUpdateDto.Id);
+            result.FirstName = userForUpdateDto.FirstName;
+            result.LastName = userForUpdateDto.LastName;
+            result.Email = userForUpdateDto.Email;
+            result.Phone = userForUpdateDto.Phone;
+            result.Rank = userForUpdateDto.Rank;
+            result.Town = userForUpdateDto.Town;
+            _userDal.Update(result);
+            return new SuccessResult("Kullanıcı Güncellendi.");
+        }
     }
 }
+
