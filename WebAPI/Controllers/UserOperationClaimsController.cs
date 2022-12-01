@@ -19,9 +19,9 @@ namespace WebAPI.Controllers
             _userOperationClaimService = userOperationClaimService;
         }
         [HttpPost("update")]
-        public IActionResult Update(UserOperationClaim userOperationClaim)
+        public IActionResult Update(UpdateClaimDto updateClaimDto)
         {
-            var result = _userOperationClaimService.Update(userOperationClaim);
+            var result = _userOperationClaimService.Update(updateClaimDto);
             if (result.Success)
             {
                 return Ok(result);

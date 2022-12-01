@@ -6,6 +6,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,10 +39,14 @@ namespace Business.Concrete
             return new SuccessDataResult<UserOperationClaim> (_userOperationClaimDal.Get(c => c.UserId == id), "UserId'ye göre getirildi.");
             
         }
+ 
         [SecuredOperation("iladmin")]
-        public IResult Update(UserOperationClaim userOperationClaim)
+        public IResult Update(UpdateClaimDto updateClaimDto)
         {
-            _userOperationClaimDal.Update(userOperationClaim);
+            var result = _userOperationClaimDal.Get(u => u.Id == updateClaimDto.UserId);
+            result.UserId = updateClaimDto.UserId;
+            result.OperationClaimId = updateClaimDto.OperationClaimId;
+            _userOperationClaimDal.Update(result);
             return new SuccessResult("Kulanıcı Güncellendi");
         }
     }
