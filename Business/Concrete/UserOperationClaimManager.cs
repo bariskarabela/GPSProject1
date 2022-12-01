@@ -40,7 +40,7 @@ namespace Business.Concrete
             
         }
  
-        //[SecuredOperation("iladmin")]
+        [SecuredOperation("iladmin")]
         public IResult Update(UpdateClaimDto updateClaimDto)
         {
             var result = _userOperationClaimDal.Get(u => u.UserId == updateClaimDto.UserId);
