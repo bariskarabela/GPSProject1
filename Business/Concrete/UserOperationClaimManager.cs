@@ -40,11 +40,10 @@ namespace Business.Concrete
             
         }
  
-        [SecuredOperation("iladmin")]
+        //[SecuredOperation("iladmin")]
         public IResult Update(UpdateClaimDto updateClaimDto)
         {
-            var result = _userOperationClaimDal.Get(u => u.Id == updateClaimDto.UserId);
-            result.UserId = updateClaimDto.UserId;
+            var result = _userOperationClaimDal.Get(u => u.UserId == updateClaimDto.UserId);
             result.OperationClaimId = updateClaimDto.OperationClaimId;
             _userOperationClaimDal.Update(result);
             return new SuccessResult("Kulanıcı Güncellendi");
