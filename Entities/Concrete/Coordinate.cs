@@ -20,6 +20,8 @@ namespace Entities.Concrete
         public string Contact { get; set; }
         public string Town { get; set; }
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Status { get; set; }

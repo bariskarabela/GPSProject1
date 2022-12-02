@@ -12,6 +12,7 @@ namespace DataAccess.Abstract
 {
     public interface ICoordinateDal : IEntityRepository<Coordinate>
     {
+        List<Coordinate> GetAllS(Expression<Func<Coordinate, bool>> filter = null);
 
     }
 }

@@ -40,6 +40,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getalls")]
+        public IActionResult GetAllS()
+        {
+            var result = _coordinateService.GetAllS();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpGet("getbytownname")]
         public IActionResult GetByTownName(string name)
         {

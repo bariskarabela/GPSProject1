@@ -72,6 +72,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAll(), CoordinateConstants.AllCoordinateGetted);
         }
+        public IDataResult<List<Coordinate>> GetAllS()
+        {
+            return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAllS(), CoordinateConstants.AllCoordinateGetted);
+        }
         public IDataResult<List<Coordinate>> GetByTownName(string name)
         {
             return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAll(c=>c.Town==name), "İlçeye göre getirildi.");

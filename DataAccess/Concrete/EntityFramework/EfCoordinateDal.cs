@@ -15,6 +15,13 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCoordinateDal : EfEntityRepositoryBase<Coordinate, Context>, ICoordinateDal
     {
-     
+        public List<Coordinate> GetAllS(Expression<Func<Coordinate, bool>> filter = null)
+        {
+            using (var context = new Context())
+            {
+                return filter == null ? context.Set<Coordinate>().Include(p => p.Category).ToList() : context.Set<Coordinate>().Where(filter)
+                    .Include(p => p.Category).ToList();
+            }
+        }
     }
 }
