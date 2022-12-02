@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace WebAPI.Controllers
 {
@@ -30,20 +31,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public IActionResult GetAll(CoordinateDetailDto coordinateDetailDto)
         {
-            var result = _coordinateService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-        [HttpGet("getalls")]
-        public IActionResult GetAllS()
-        {
-            var result = _coordinateService.GetAllS();
+            var result = _coordinateService.GetAll(coordinateDetailDto);
             if (result.Success)
             {
                 return Ok(result);

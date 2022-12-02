@@ -11,8 +11,7 @@ namespace Business.Abstract
 {
     public interface ICoordinateService
     {
-        IDataResult<List<Coordinate>> GetAllS();
-        IDataResult<List<Coordinate>> GetAll();
+        IDataResult<List<Coordinate>> GetAll(CoordinateDetailDto coordinateDetailDto);
         IDataResult<Coordinate> GetById(int id);
         IResult Add(Coordinate coordinate);
         IResult Delete(Coordinate coordinate);

@@ -37,7 +37,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Category>> GetAll()
         {
-            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll() , CategoryConstants.AllCategoryGetted);
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), CategoryConstants.AllCategoryGetted);
         }
 
         public IDataResult<List<Category>> GetByCategoryName(string name)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
@@ -14,9 +15,11 @@ using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.NLog;
 using Core.CrossCuttingConcerns.Logging.NLog.Loggers;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Entites.Concrete;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
@@ -68,13 +71,27 @@ namespace Business.Concrete
 
 
 
-        public IDataResult<List<Coordinate>> GetAll()
+        public IDataResult<List<Coordinate>> GetAll(CoordinateDetailDto coordinateDetailDto)
         {
+            //var result = new List<CoordinateDetailDto>();
+            var result = _coordinateDal.Get(u => u.Id == coordinateDetailDto.Id);
+            result.ImagePath = (coordinateDetailDto.ImagePath);
+            result.Title = coordinateDetailDto.Title;
+            result.LocationX = coordinateDetailDto.LocationX;
+            result.LocationY = coordinateDetailDto.LocationY;
+            result.Address = coordinateDetailDto.Address;
+            result.Active = coordinateDetailDto.Active;
+            result.Description = coordinateDetailDto.Description;
+            result.Contact = coordinateDetailDto.Contact;
+            result.Town = coordinateDetailDto.Town;
+            result.CategoryId = coordinateDetailDto.CategoryId;
+            result.CreatedDate = coordinateDetailDto.CreatedDate;
+            result.UpdatedDate = coordinateDetailDto.UpdatedDate;
+            result.Status = coordinateDetailDto.Status;
+
+            _coordinateDal.GetAll(result);
+
             return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAll(), CoordinateConstants.AllCoordinateGetted);
-        }
-        public IDataResult<List<Coordinate>> GetAllS()
-        {
-            return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAllS(), CoordinateConstants.AllCoordinateGetted);
         }
         public IDataResult<List<Coordinate>> GetByTownName(string name)
         {
