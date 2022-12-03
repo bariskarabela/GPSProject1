@@ -12,6 +12,6 @@ namespace DataAccess.Abstract
 {
     public interface ICoordinateDal : IEntityRepository<Coordinate>
     {
-
+        IList <CoordinateDetailDto> GetListCoordinateDetail();
     }
 }

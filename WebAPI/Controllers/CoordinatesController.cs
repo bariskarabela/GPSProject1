@@ -31,9 +31,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getall")]
-        public IActionResult GetAll(CoordinateDetailDto coordinateDetailDto)
+        public IActionResult GetAll(  )
         {
-            var result = _coordinateService.GetAll(coordinateDetailDto);
+            var result = _coordinateService.GetListCoordinateDetail();
             if (result.Success)
             {
                 return Ok(result);

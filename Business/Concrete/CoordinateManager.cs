@@ -44,7 +44,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("iladmin,ilceadmin")]
+        //[SecuredOperation("iladmin,ilceadmin")]
         public IResult Add(Coordinate coordinate)
 
         {
@@ -71,27 +71,9 @@ namespace Business.Concrete
 
 
 
-        public IDataResult<List<Coordinate>> GetAll(CoordinateDetailDto coordinateDetailDto)
+        public IDataResult<IList<CoordinateDetailDto>> GetListCoordinateDetail()
         {
-            //var result = new List<CoordinateDetailDto>();
-            var result = _coordinateDal.Get(u => u.Id == coordinateDetailDto.Id);
-            result.ImagePath = (coordinateDetailDto.ImagePath);
-            result.Title = coordinateDetailDto.Title;
-            result.LocationX = coordinateDetailDto.LocationX;
-            result.LocationY = coordinateDetailDto.LocationY;
-            result.Address = coordinateDetailDto.Address;
-            result.Active = coordinateDetailDto.Active;
-            result.Description = coordinateDetailDto.Description;
-            result.Contact = coordinateDetailDto.Contact;
-            result.Town = coordinateDetailDto.Town;
-            result.CategoryId = coordinateDetailDto.CategoryId;
-            result.CreatedDate = coordinateDetailDto.CreatedDate;
-            result.UpdatedDate = coordinateDetailDto.UpdatedDate;
-            result.Status = coordinateDetailDto.Status;
-
-            _coordinateDal.GetAll(result);
-
-            return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAll(), CoordinateConstants.AllCoordinateGetted);
+            return new SuccessDataResult<IList<CoordinateDetailDto>>(_coordinateDal.GetListCoordinateDetail());
         }
         public IDataResult<List<Coordinate>> GetByTownName(string name)
         {
