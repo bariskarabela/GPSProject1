@@ -30,10 +30,10 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
-        [HttpGet("getall")]
-        public IActionResult GetAll(  )
+        [HttpGet("getalls")]
+        public IActionResult GetAlls()
         {
-            var result = _coordinateService.GetListCoordinateDetail();
+            var result = _coordinateService.GetDetails();
             if (result.Success)
             {
                 return Ok(result);
@@ -85,6 +85,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
-        
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
+            var result = _coordinateService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
     }
 }

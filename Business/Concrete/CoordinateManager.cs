@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
+using Twilio.TwiML.Messaging;
 
 namespace Business.Concrete
 {
@@ -69,16 +71,19 @@ namespace Business.Concrete
             return new SuccessResult(CoordinateConstants.CoordinateUpdated);
         }
 
-
-
-        public IDataResult<IList<CoordinateDetailDto>> GetListCoordinateDetail()
-        {
-            return new SuccessDataResult<IList<CoordinateDetailDto>>(_coordinateDal.GetListCoordinateDetail());
-        }
         public IDataResult<List<Coordinate>> GetByTownName(string name)
         {
             return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAll(c=>c.Town==name), "İlçeye göre getirildi.");
         }
 
+        public IDataResult<List<Coordinate>> GetAll()
+        {
+            return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAll());
+        }
+
+        public IDataResult<List<CoordinateDetailDto>> GetDetails()
+        {
+            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetDetails());
+        }
     }
 }
