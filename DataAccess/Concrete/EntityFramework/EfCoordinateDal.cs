@@ -23,13 +23,12 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new Context())
             {
-                var result = from x in context.Coordinates
+                var result = from x in context.Coordinates.Where(filter)
                              join y in context.Categories
                              on x.Id equals y.Id
                              select new CoordinateDetailDto
                              {
                                  Id = x.Id,
-                                 ImagePath = x.ImagePath,
                                  Title = x.Title,
                                  LocationX = x.LocationX,
                                  LocationY = x.LocationY,
@@ -52,13 +51,12 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new Context())
             {
-                var result = from x in context.Coordinates
+                var result = from x in filter == null ? context.Coordinates : context.Coordinates.Where(filter)
                              join y in context.Categories
-                             on x.Id equals y.Id
+                             on x.CategoryId equals y.Id
                              select new CoordinateDetailDto
                              {
                                  Id = x.Id,
-                                 ImagePath = x.ImagePath,
                                  Title = x.Title,
                                  LocationX = x.LocationX,
                                  LocationY = x.LocationY,
