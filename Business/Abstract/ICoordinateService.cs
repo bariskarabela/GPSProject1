@@ -18,7 +18,7 @@ namespace Business.Abstract
         IResult Add(Coordinate coordinate);
         IResult Delete(Coordinate coordinate);
         IResult Update(Coordinate coordinate);
-        IDataResult<List<Coordinate>> GetByTownName(string name);
+        IDataResult<List<CoordinateDetailDto>> GetByTownName(string name);
 
 
     }

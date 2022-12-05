@@ -71,9 +71,9 @@ namespace Business.Concrete
             return new SuccessResult(CoordinateConstants.CoordinateUpdated);
         }
 
-        public IDataResult<List<Coordinate>> GetByTownName(string name)
+        public IDataResult<List<CoordinateDetailDto>> GetByTownName(string name)
         {
-            return new SuccessDataResult<List<Coordinate>>(_coordinateDal.GetAll(c=>c.Town==name), "İlçeye göre getirildi.");
+            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetDetails(c=>c.Town==name), "İlçeye göre getirildi.");
         }
 
         public IDataResult<List<Coordinate>> GetAll()
