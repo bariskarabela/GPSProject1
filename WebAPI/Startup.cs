@@ -24,7 +24,7 @@ using Entities.Concrete;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
 {
@@ -42,8 +42,6 @@ namespace WebAPI
         {
             services.AddCors();
             services.AddControllers();
-           
-
 
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -61,26 +59,29 @@ namespace WebAPI
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
+
                 });
-            services.AddDependencyResolvers(new ICoreModule[]{new CoreModule()});
+            services.AddDependencyResolvers(new ICoreModule[] { new CoreModule() });
 
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
-            
+
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
-            }
+            //if (env.IsDevelopment())
+            //{
+            //app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+            //}
+
             app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader());
             //app.UseHttpsRedirection();
 
@@ -96,6 +97,7 @@ namespace WebAPI
                 endpoints.MapControllers();
             });
         }
-        //köpke adam
+        
     }
 }
+

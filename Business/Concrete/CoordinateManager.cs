@@ -46,7 +46,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("iladmin,ilceadmin")]
+        [SecuredOperation("iladmin,ilceadmin")]
         public IResult Add(Coordinate coordinate)
 
         {

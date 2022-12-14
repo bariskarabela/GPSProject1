@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
+using Core.Utilities.Results;
 
 namespace WebAPI.Controllers
 {
@@ -39,6 +40,34 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result);
+        }
+
+        [HttpGet("getss")]
+        public IActionResult Getss()
+        {
+            try
+            {
+                var result = _categoryService.GetAll();
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(ex);
+
+            }
+
+
+
+        }
+        [HttpGet("getsss")]
+        public IActionResult Getsss()
+        {
+            var result = "1";
+         
+
+            return Ok(result);
         }
         [HttpGet("getbycategoryname")]
         public IActionResult GetByTownName(string name)
