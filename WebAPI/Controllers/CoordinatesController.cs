@@ -96,6 +96,28 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getchartbystatusname")]
+        public IActionResult GetChartByStatusName(string statusName)
+        {
+            var result = _coordinateService.GetChartByStatusName(statusName);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        [HttpGet("getchartbytownname")]
+        public IActionResult GetChartByTownName(string townName)
+        {
+            var result = _coordinateService.GetChartByTownName(townName);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
 
     }
 }

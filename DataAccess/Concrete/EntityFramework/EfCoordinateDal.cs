@@ -18,32 +18,31 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCoordinateDal : EfEntityRepositoryBase<Coordinate, Context>, ICoordinateDal
     {
-
-        public CoordinateDetailDto GetDetail(Expression<Func<Coordinate, bool>> filter)
+        public List<CoordinateDetailDto> GetChartByStatusName(Expression<Func<Coordinate, bool>> filter = null)
         {
             using (var context = new Context())
             {
-                var result = from x in context.Coordinates.Where(filter)
-                             join y in context.Categories
-                             on x.Id equals y.Id
+                var result = from x in filter == null ? context.Coordinates : context.Coordinates.Where(filter)
                              select new CoordinateDetailDto
                              {
-                                 Id = x.Id,
-                                 Title = x.Title,
-                                 LocationX = x.LocationX,
-                                 LocationY = x.LocationY,
-                                 Address = x.Address,
-                                 Active = x.Active,
-                                 Description = x.Description,
-                                 Contact = x.Contact,
                                  Town = x.Town,
-                                 CategoryId = x.CategoryId,
-                                 CreatedDate = x.CreatedDate,
-                                 UpdatedDate = x.UpdatedDate,
                                  Status = x.Status,
-                                 CategoryName = y.CategoryName
                              };
-                return result.SingleOrDefault();
+                return result.ToList();
+            }
+        }
+
+        public List<CoordinateDetailDto> GetChartByTownName(Expression<Func<Coordinate, bool>> filter = null)
+        {
+            using (var context = new Context())
+            {
+                var result = from x in filter == null ? context.Coordinates : context.Coordinates.Where(filter)
+                             select new CoordinateDetailDto
+                             {
+                                 Town = x.Town,
+                                 Status = x.Status,
+                             };
+                return result.ToList();
             }
         }
 
@@ -74,5 +73,6 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
     }
 }

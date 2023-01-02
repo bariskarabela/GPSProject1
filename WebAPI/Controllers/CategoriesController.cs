@@ -42,33 +42,6 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getss")]
-        public IActionResult Getss()
-        {
-            try
-            {
-                var result = _categoryService.GetAll();
-                return Ok(result);
-
-            }
-            catch (Exception ex)
-            {
-
-                return Ok(ex);
-
-            }
-
-
-
-        }
-        [HttpGet("getsss")]
-        public IActionResult Getsss()
-        {
-            var result = "1";
-         
-
-            return Ok(result);
-        }
         [HttpGet("getbycategoryname")]
         public IActionResult GetByTownName(string name)
         {

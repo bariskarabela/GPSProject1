@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.ConstrainedExecution;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -25,6 +27,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
+using NLog.Filters;
 using Twilio.TwiML.Messaging;
 
 namespace Business.Concrete
@@ -46,7 +49,7 @@ namespace Business.Concrete
         }
 
 
-        [SecuredOperation("iladmin,ilceadmin")]
+        //[SecuredOperation("iladmin,ilceadmin")]
         public IResult Add(Coordinate coordinate)
 
         {
@@ -84,6 +87,16 @@ namespace Business.Concrete
         public IDataResult<List<CoordinateDetailDto>> GetDetails()
         {
             return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetDetails());
+        }
+
+        public IDataResult<List<CoordinateDetailDto>> GetChartByStatusName(string statusName)
+        {
+            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetChartByStatusName(c => c.Status == ));
+        }
+
+        public IDataResult<List<CoordinateDetailDto>> GetChartByTownName(string townName)
+        {          
+            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetChartByTownName(c => c.Town == townName));
         }
     }
 }
