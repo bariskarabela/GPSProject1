@@ -18,33 +18,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCoordinateDal : EfEntityRepositoryBase<Coordinate, Context>, ICoordinateDal
     {
-        public List<CoordinateDetailDto> GetChartByStatusName(Expression<Func<Coordinate, bool>> filter = null)
-        {
-            using (var context = new Context())
-            {
-                var result = from x in filter == null ? context.Coordinates : context.Coordinates.Where(filter)
-                             select new CoordinateDetailDto
-                             {
-                                 Town = x.Town,
-                                 Status = x.Status,
-                             };
-                return result.ToList();
-            }
-        }
 
-        public List<CoordinateDetailDto> GetChartByTownName(Expression<Func<Coordinate, bool>> filter = null)
-        {
-            using (var context = new Context())
-            {
-                var result = from x in filter == null ? context.Coordinates : context.Coordinates.Where(filter)
-                             select new CoordinateDetailDto
-                             {
-                                 Town = x.Town,
-                                 Status = x.Status,
-                             };
-                return result.ToList();
-            }
-        }
 
         public List<CoordinateDetailDto> GetDetails(Expression<Func<Coordinate, bool>> filter = null)
         {

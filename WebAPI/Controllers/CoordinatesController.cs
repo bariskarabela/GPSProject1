@@ -97,9 +97,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getchartbystatusname")]
-        public IActionResult GetChartByStatusName(string statusName)
+        public IActionResult GetChartByStatusName()
         {
-            var result = _coordinateService.GetChartByStatusName(statusName);
+            var result = _coordinateService.GetChartByStatusName();
             if (result.Success)
             {
                 return Ok(result);

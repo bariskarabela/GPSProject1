@@ -20,8 +20,8 @@ namespace Business.Abstract
         IResult Delete(Coordinate coordinate);
         IResult Update(Coordinate coordinate);
         IDataResult<List<CoordinateDetailDto>> GetByTownName(string name);
-        IDataResult<List<CoordinateDetailDto>> GetChartByStatusName(string statusName);
-        IDataResult<List<CoordinateDetailDto>> GetChartByTownName(string townName);
+        IDataResult<ChartDetailDto> GetChartByTownName(string townName);
+        IDataResult<ChartDetailDto> GetChartByStatusName();
 
     }
 }

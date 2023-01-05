@@ -14,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=GPSProject;Trusted_Connection=true;Trust Server Certificate=true");
+            optionsBuilder.UseSqlServer(@"Server=10.34.14.115;Database=GPSProject;Trusted_Connection=true;Trust Server Certificate=true");
         }
         public DbSet<Coordinate> Coordinates { get; set; }
         public DbSet<CoordinateImage> CoordinateImages { get; set; }

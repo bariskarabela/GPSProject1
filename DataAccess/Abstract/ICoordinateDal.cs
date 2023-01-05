@@ -14,8 +14,5 @@ namespace DataAccess.Abstract
     public interface ICoordinateDal : IEntityRepository<Coordinate>
     {
         List<CoordinateDetailDto> GetDetails(Expression<Func<Coordinate, bool>> filter = null);
-        List<CoordinateDetailDto> GetChartByStatusName(Expression<Func<Coordinate, bool>> filter = null);
-
-        List<CoordinateDetailDto> GetChartByTownName(Expression<Func<Coordinate, bool>> filter = null);
     }
 }

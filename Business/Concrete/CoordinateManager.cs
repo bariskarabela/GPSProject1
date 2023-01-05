@@ -49,7 +49,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("iladmin,ilceadmin")]
+        [SecuredOperation("iladmin,ilceadmin")]
         public IResult Add(Coordinate coordinate)
 
         {
@@ -76,7 +76,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CoordinateDetailDto>> GetByTownName(string name)
         {
-            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetDetails(c=>c.Town==name), "İlçeye göre getirildi.");
+            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetDetails(c => c.Town == name), "İlçeye göre getirildi.");
         }
 
         public IDataResult<List<Coordinate>> GetAll()
@@ -89,14 +89,49 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetDetails());
         }
 
-        public IDataResult<List<CoordinateDetailDto>> GetChartByStatusName(string statusName)
+        public IDataResult<ChartDetailDto> GetChartByTownName(string townName)
         {
-            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetChartByStatusName(c => c.Status == ));
+            var result1 = _coordinateDal.GetAll(c => c.Status == "Fiber Hattı Kurulum Aşamasında" && c.Town == townName).Count().ToString();
+            var result2 = _coordinateDal.GetAll(c => c.Status == "Ruhsatlandırma Aşamasında" && c.Town == townName).Count().ToString();
+            var result3 = _coordinateDal.GetAll(c => c.Status == "Onaylandı" && c.Town == townName).Count().ToString();
+            var result4 = _coordinateDal.GetAll(c => c.Status == "Enerji Hattı Kurulum Aşamasında" && c.Town == townName).Count().ToString();
+            var result5 = _coordinateDal.GetAll(c => c.Status == "Fiziksel Kurulum Aşamasında" && c.Town == townName).Count().ToString();
+            var result6 = _coordinateDal.GetAll(c => c.Status == "Kurulum Tamamlandı" && c.Town == townName).Count().ToString();
+
+            var result = new ChartDetailDto
+            {
+                Fiber = result1,
+                Ruhsatlandırma = result2,
+                Onay = result3,
+                Enerji = result4,
+                Fiziksel = result5,
+                Kurulumu = result6
+            };
+
+            return new SuccessDataResult<ChartDetailDto>(result, "İstatistikler getirildi.");
         }
 
-        public IDataResult<List<CoordinateDetailDto>> GetChartByTownName(string townName)
-        {          
-            return new SuccessDataResult<List<CoordinateDetailDto>>(_coordinateDal.GetChartByTownName(c => c.Town == townName));
+
+        public IDataResult<ChartDetailDto>GetChartByStatusName()
+        {
+            var result1 = _coordinateDal.GetAll(c => c.Status == "Fiber Hattı Kurulum Aşamasında").Count().ToString();
+            var result2 = _coordinateDal.GetAll(c => c.Status == "Ruhsatlandırma Aşamasında").Count().ToString();
+            var result3 = _coordinateDal.GetAll(c => c.Status == "Onaylandı").Count().ToString();
+            var result4 = _coordinateDal.GetAll(c => c.Status == "Enerji Hattı Kurulum Aşamasında").Count().ToString();
+            var result5 = _coordinateDal.GetAll(c => c.Status == "Fiziksel Kurulum Aşamasında").Count().ToString();
+            var result6 = _coordinateDal.GetAll(c => c.Status == "Kurulum Tamamlandı").Count().ToString();
+            
+
+            var result =new ChartDetailDto { 
+                Fiber=result1,
+                Ruhsatlandırma=result2,
+                Onay=result3,
+                Enerji=result4,
+                Fiziksel=result5,
+                Kurulumu=result6
+            } ;
+
+            return new SuccessDataResult<ChartDetailDto>(result,"İstatistikler getirildi.");
         }
     }
 }
