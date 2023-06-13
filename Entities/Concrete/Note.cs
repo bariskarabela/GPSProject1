@@ -16,7 +16,7 @@ namespace Entities.Concrete
         public DateTime? CreatedDate { get; set; }
         public string Message { get; set; }
         public string Status { get; set; }
-        public int CoordinateId { get; set; }
+        public int CriminalId { get; set; }
 
     }
 }

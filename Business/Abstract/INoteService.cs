@@ -11,6 +11,6 @@ namespace Business.Abstract
     public interface INoteService
     {
         IResult Add(Note note);
-        IDataResult<List<Note>> GetNoteByCoordinateId(int coordinateId);
+        IDataResult<List<Note>> GetNoteBycriminalId(int criminalId);
     }
 }

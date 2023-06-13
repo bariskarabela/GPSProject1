@@ -26,24 +26,24 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-
+        [SecuredOperation("iladmin")]
         public void Add(User user)
         {
             _userDal.Add(user);
         }
-
+     
         public User GetByMail(string email)
         {
             return _userDal.Get(u => u.Email == email);
         }
 
-
+        [SecuredOperation("iladmin")]
         public User GetById(int id)
         {
             return _userDal.Get(u => u.Id == id);
         }
 
-
+        [SecuredOperation("iladmin")]
         public IResult Update(User user)
         {
               _userDal.Update(user);
@@ -51,7 +51,7 @@ namespace Business.Concrete
          
         }
 
-
+        [SecuredOperation("iladmin")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
@@ -63,12 +63,12 @@ namespace Business.Concrete
         {
             return _userDal.GetClaims(user);
         }
-
+        [SecuredOperation("iladmin")]
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), "Bütün Kullanıcılar listelendi.");
         }
-
+        [SecuredOperation("iladmin")]
         public IResult UpdateUser(UserForUpdateDto userForUpdateDto)
         {
             var result = _userDal.Get(u => u.Id == userForUpdateDto.Id);

@@ -24,11 +24,14 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CoordinateManager>().As<ICoordinateService>().SingleInstance();
-            builder.RegisterType<EfCoordinateDal>().As<ICoordinateDal>().SingleInstance();
+            builder.RegisterType<CriminalManager>().As<ICriminalService>().SingleInstance();
+            builder.RegisterType<EfCriminalDal>().As<ICriminalDal>().SingleInstance();
 
-            builder.RegisterType<CoordinateImageManager>().As<ICoordinateImageService>().SingleInstance();
-            builder.RegisterType<EfCoordinateImageDal>().As<ICoordinateImageDal>().SingleInstance();
+            builder.RegisterType<ExcelCriminalManager>().As<IExcelCriminalService>().SingleInstance();
+            builder.RegisterType<EfExcelCriminalDal>().As<IExcelCriminalDal>().SingleInstance();
+
+            builder.RegisterType<ImageManager>().As<IImageService>().SingleInstance();
+            builder.RegisterType<EfImageDal>().As<IImageDal>().SingleInstance();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();

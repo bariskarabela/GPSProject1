@@ -7,7 +7,7 @@ using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers
+namespace MiniAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

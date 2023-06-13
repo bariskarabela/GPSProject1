@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Entites.Concrete;
 using Core.Utilities.Helpers;
@@ -17,7 +18,7 @@ using Entities.DTOs;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers
+namespace MiniAPI.Controllers
 {
    
     [Route("api/[controller]")]
@@ -98,6 +99,7 @@ namespace WebAPI.Controllers
 
         }
         [HttpGet("getall")]
+        [SecuredOperation("iladmin")]
         public IActionResult GetAll()
         {
             var result = _userService.GetAll();

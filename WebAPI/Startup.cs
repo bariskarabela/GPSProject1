@@ -26,7 +26,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebAPI
+namespace MiniAPI
 {
     public class Startup
     {
@@ -66,27 +66,60 @@ namespace WebAPI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MiniAPI", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Token ver",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme{
+                             Reference = new OpenApiReference{Type=ReferenceType.SecurityScheme,Id="Bearer"}
+
+                    },
+
+
+                    new string []{}
+                    }
+                });
             });
 
         }
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //if (env.IsDevelopment())
             //{
             //app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MiniAPI v1"));
             //}
+            
 
             app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader());
             //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseStaticFiles();
+
+            app.Use(async (context, next) =>
+                {
+                    try
+                    {
+                        await next();
+                    }
+                    catch (UnauthorizedAccessException) { context.Response.StatusCode = 401; }
+
+                });
+
 
             app.UseAuthentication();
 

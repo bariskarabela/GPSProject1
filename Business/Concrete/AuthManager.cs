@@ -120,6 +120,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+
         public IResult UpdatePassword(UpdatePasswordDto updatePasswordDto)
         {
             var userToCheck = _userService.GetByMail(updatePasswordDto.Email);

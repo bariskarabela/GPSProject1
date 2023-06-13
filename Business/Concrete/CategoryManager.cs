@@ -34,17 +34,17 @@ namespace Business.Concrete
             _categoryDal.Delete(category);
             return new SuccessResult(CategoryConstants.CategoryDeleted);
         }
-
+        [SecuredOperation("iladmin")]
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(), CategoryConstants.AllCategoryGetted);
         }
-
+        [SecuredOperation("iladmin")]
         public IDataResult<List<Category>> GetByCategoryName(string name)
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(c => c.CategoryName == name), "Kategoriye göre getirildi.");
         }
-
+        [SecuredOperation("iladmin")]
         public IDataResult<Category> GetById(int id)
         {
             return new SuccessDataResult<Category>(_categoryDal.Get(c => c.Id == id), CategoryConstants.CategoryGettedById);

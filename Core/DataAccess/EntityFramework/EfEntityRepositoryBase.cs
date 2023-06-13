@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.DataAccess.EntityFramework
 {
-    public class EfEntityRepositoryBase<TEntity, TContext>  : IEntityRepository<TEntity> where TEntity:class,IEntity,new() where TContext:DbContext,new()
+    public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity> where TEntity : class, IEntity, new() where TContext : DbContext, new()
     {
         public void Add(TEntity entity)
         {
@@ -20,7 +20,15 @@ namespace Core.DataAccess.EntityFramework
                 context.SaveChanges();
             }
         }
+        public void AddRangeItems(List<TEntity> entities)
+        {
+            using (TContext context = new TContext())
+            {
 
+                context.AddRange(entities);
+                context.SaveChanges();
+            }
+        }
         public void Delete(TEntity entity)
         {
             using (TContext context = new TContext())

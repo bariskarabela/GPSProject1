@@ -35,7 +35,7 @@ namespace Business.BusinessAspects.Autofac
                 }
             }
 
-            throw new Exception(AuthContants.AuthorizationDenied);
+            throw new UnauthorizedAccessException(AuthContants.AuthorizationDenied);
         }
     }
 }

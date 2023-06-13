@@ -8,7 +8,7 @@ using Business.Abstract;
 using Entities.Concrete;
 using Core.Utilities.Results;
 
-namespace WebAPI.Controllers
+namespace MiniAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

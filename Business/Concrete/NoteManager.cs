@@ -20,7 +20,7 @@ namespace Business.Concrete
             _noteDal = noteDal;
         }
 
-        [SecuredOperation("iladmin,ilceadmin")]
+        [SecuredOperation("iladmin")]
         public IResult Add(Note note)
         {
             note.CreatedDate = DateTime.Now;
@@ -29,10 +29,10 @@ namespace Business.Concrete
             return new SuccessResult("Not Eklendi.");
         }
 
-        [SecuredOperation("iladmin,ilceadmin")]
-        public IDataResult<List<Note>> GetNoteByCoordinateId(int coordinateId)
+        [SecuredOperation("iladmin")]
+        public IDataResult<List<Note>> GetNoteBycriminalId(int criminalId)
         {
-            return new SuccessDataResult<List<Note>>(_noteDal.GetAll(c=> c.CoordinateId==coordinateId), "Talep tarihçesi açıldı.");
+            return new SuccessDataResult<List<Note>>(_noteDal.GetAll(c=> c.CriminalId==criminalId), "Suç tarihçesi açıldı.");
         }
     }
 }

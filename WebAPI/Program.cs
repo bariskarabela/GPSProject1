@@ -13,7 +13,7 @@ using Business.DependencyResolvers.Autofac;
 using NLog.Web;
 
 
-namespace WebAPI
+namespace MiniAPI
 {
     public class Program
     {

@@ -33,7 +33,7 @@ namespace Business.Concrete
             _userOperationClaimDal.Add(userOperationClaim);
             return new SuccessResult("Rol Eklendi");
         }
-
+        [SecuredOperation("iladmin")]
         public IDataResult<UserOperationClaim> GetByUserId(int id)
         {
             return new SuccessDataResult<UserOperationClaim> (_userOperationClaimDal.Get(c => c.UserId == id), "UserId'ye göre getirildi.");

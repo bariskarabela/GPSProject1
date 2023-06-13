@@ -13,7 +13,10 @@ namespace Core.DataAccess
     {
         List<TEntity> GetAll(Expression<Func<TEntity,bool>> filter=null);
         TEntity Get(Expression<Func<TEntity,bool>> filter);
-        void Add(TEntity entity);
+        void Add(TEntity entity); 
+
+        
+        void AddRangeItems(List<TEntity> entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
     }

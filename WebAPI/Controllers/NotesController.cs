@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Controllers
+namespace MiniAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,10 +19,10 @@ namespace WebAPI.Controllers
             _noteService = noteService;
         }
 
-        [HttpGet("getnotebycoordinateid")]
-        public IActionResult GetNoteByCoordinateId(int coorinateId)
+        [HttpGet("getnotebycriminalid")]
+        public IActionResult GetNoteBycriminalId(int coorinateId)
         {
-            var result = _noteService.GetNoteByCoordinateId(coorinateId);
+            var result = _noteService.GetNoteBycriminalId(coorinateId);
             if (result.Success)
             {
                 return Ok(result);
